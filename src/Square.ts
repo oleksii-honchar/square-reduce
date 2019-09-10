@@ -16,8 +16,7 @@ export class Square {
   }
 
   getChildByIdx(idx): Square {
-    // если нет детей - вернуть себя
-    return this.children[idx] || this;
+    return this.children[idx];
   }
 
   getChildren(): Square [] {
@@ -41,18 +40,8 @@ export class Square {
     }
 
     // let's merge
-    let children = [];
-    let mergeWith = null;
-    if (this.hasChildren()) {
-      children = this.children;
-      mergeWith = square
-    } else {
-      children = square.getChildren();
-      mergeWith = this;
-    }
-
-    children = children.map(
-      (childSquare: Square, idx) => childSquare.merge(mergeWith.getChildByIdx(idx))
+    const children = this.children.map(
+      (childSquare: Square, idx) => childSquare.merge(square.getChildByIdx(idx))
     );
 
     return new Square(children);
